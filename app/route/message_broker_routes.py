@@ -1,8 +1,9 @@
 # message_broker_routes.py
 from flask import Flask, request, jsonify
-from app.message_handler.bot_commands import bot_commands
+from app.message_handler.bot_commands import BotCommands
 from api.consul_client import consul_client
 from conf.conf import Conf
+
 
 def register_consul(app):
     '''
@@ -37,8 +38,8 @@ def craete_message_broker_app():
         server_name = data.get('server_name')
         commands = data.get('commands')
         if server_name and commands:
-            bot_commands[server_name] = commands
-            print(bot_commands)
+            for command in commands:
+                BotCommands.add_commands(command, server_name)            
             return jsonify({'message': 'Bot commands registered successfully'}), 200
         else:
             return jsonify({'message': 'Invalid request'}), 400

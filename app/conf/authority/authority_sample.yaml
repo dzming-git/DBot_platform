@@ -1,4 +1,4 @@
-keywords:
+commands:
   USER: &USER
     - '#调取监控'
     - '#监控列表'

@@ -1,8 +1,19 @@
-server:
-  - name: DBot_main
-  - ip: 0.0.0.0
-  - port: 5701
-  - tags:
+# 机器人主程序配置
+bot:
+  name: DBot_main
+  ip: 0.0.0.0
+  port: 5701
+  tags:
     - DBot
     - python
     - go-cqhttp
+
+# 消息代理配置
+message_broker:
+  name: DBot_message_broker
+  ip: 0.0.0.0
+  port: 5703
+  tags:
+    - DBot
+    - DBot_message_broker
+    - python

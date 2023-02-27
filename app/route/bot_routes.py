@@ -1,32 +1,37 @@
-# gocqhttp_routes.py
+# bot_routes.py
 from flask import Flask, request
 from app.message_handler.message_handler import message_handler
 from api.consul_client import consul_client
 from conf.conf import Conf
 
-def create_gocqhttp_app():
-    gocqhttp_app = Flask(__name__)
+def register_consul(app):
+    '''
+    服务开启前,注册consul
+    '''
+    server_name = Conf.get_bot_name()
+    port = Conf.get_bot_port()
+    tags = Conf.get_bot_tags()
+    bot_id = consul_client.register_server(server_name, port, tags)
+    config = {
+        'bot_id': bot_id
+    }
+    return config
 
-    @gocqhttp_app.before_first_request
-    def register_consul():
-        '''
-        服务开启前,注册consul
-        '''
-        server_name = Conf.get_rob_name()
-        port = Conf.get_gocqhttp_port()
-        service_tags = Conf.get_gocqhttp_tags()
-        bot_id = consul_client.register_service(server_name, port, service_tags)
-        gocqhttp_app.config['bot_id'] = bot_id
+def deregister_server(app):
+    '''
+    服务结束后,注销consul
+    '''
+    bot_id = app.config['bot_id']
+    consul_client.deregister_server(bot_id)
 
-    @gocqhttp_app.teardown_appcontext
-    def deregister_service(error):
-        '''
-        服务结束后,注销consul
-        '''
-        bot_id = gocqhttp_app.config['bot_id']
-        consul_client.deregister_service(bot_id)
+def create_bot_app():
+    bot_app = Flask(__name__)
+    config = {
+        **register_consul(bot_app)
+    }
+    bot_app.config.update(config)
 
-    @gocqhttp_app.route('/', methods=['POST'])
+    @bot_app.route('/', methods=['POST'])
     def handle_message():
         # 获取消息体
         message = request.json
@@ -48,8 +53,11 @@ def create_gocqhttp_app():
         # 返回响应
         return 'OK'
 
-    @gocqhttp_app.route('/health')
+    @bot_app.route('/health')
     def health_check():
         return 'OK'
     
-    return gocqhttp_app
+    return bot_app
+
+def destory_bot_app(app):
+    deregister_server(app)

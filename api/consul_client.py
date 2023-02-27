@@ -13,20 +13,20 @@ class ConsulClient:
         server_id = f'{server_name}-{socket.gethostname()}'
         server_address = socket.gethostbyname(socket.gethostname())
         server_check = consul.Check.http(url=f'http://{server_address}:{server_port}/health', interval='10s')
-        self.consul.agent.server.register(name=server_name, server_id=server_id, address=server_address, port=server_port, tags=server_tags, check=server_check)
+        self.consul.agent.service.register(name=server_name, service_id=server_id, address=server_address, port=server_port, tags=server_tags, check=server_check)
         return server_id
 
     def deregister_server(self, server_id):
         """
         从Consul中注销服务
         """
-        self.consul.agent.server.deregister(server_id)
+        self.consul.agent.service.deregister(server_id)
 
     def discover_servers(self, server_name):
         """
         发现服务
         """
-        servers = self.consul.catalog.server(server_name)[1]
-        return [(server['serverAddress'], server['serverPort']) for server in servers]
+        servers = self.consul.catalog.service(server_name)[1]
+        return [(server['ServiceAddress'], server['ServicePort']) for server in servers]
 
 consul_client = ConsulClient()

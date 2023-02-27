@@ -39,9 +39,9 @@ class Authority:
             return cls._authorities[0][0]['permission']
 
     @classmethod
-    def check_keyword_permission(cls, keyword, group_id, qq_id):
+    def check_command_permission(cls, command, group_id, qq_id):
         permission = cls.get_permission(group_id, qq_id)
         if permission:
-            if keyword in permission:
-                return True
-        return False
+            if command in list(permission.keys()):
+                return permission[command]
+        return None

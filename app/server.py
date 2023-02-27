@@ -4,6 +4,7 @@ import time
 from conf.conf import Conf
 from app.route.bot_routes import create_bot_app
 from app.route.message_broker_routes import craete_message_broker_app
+from app.message_handler.message_handler import message_forwarding
 
 CONF_PATH = './conf/conf.yaml'
 
@@ -17,6 +18,7 @@ if __name__ == '__main__':
     bot_port = Conf.get_bot_port()
     message_broker_port = Conf.get_message_broker_port()
     threads = [
+        threading.Thread(target=message_forwarding),
         threading.Thread(target=bot_app.run, kwargs={'host': ip, 'port': bot_port}),
         threading.Thread(target=message_broker_app.run, kwargs={'host': ip, 'port': message_broker_port})]
     for t in threads:

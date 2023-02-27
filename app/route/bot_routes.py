@@ -24,14 +24,8 @@ def deregister_server(app):
     bot_id = app.config['bot_id']
     consul_client.deregister_server(bot_id)
 
-def create_bot_app():
-    bot_app = Flask(__name__)
-    config = {
-        **register_consul(bot_app)
-    }
-    bot_app.config.update(config)
-
-    @bot_app.route('/', methods=['POST'])
+def route_registration(app):
+    @app.route('/', methods=['POST'])
     def handle_message():
         # 获取消息体
         message = request.json
@@ -53,10 +47,18 @@ def create_bot_app():
         # 返回响应
         return 'OK'
 
-    @bot_app.route('/health')
+    @app.route('/health')
     def health_check():
         return 'OK'
     
+
+def create_bot_app():
+    bot_app = Flask(__name__)
+    config = {
+        **register_consul(bot_app)
+    }
+    bot_app.config.update(config)
+    route_registration(bot_app)
     return bot_app
 
 def destory_bot_app(app):

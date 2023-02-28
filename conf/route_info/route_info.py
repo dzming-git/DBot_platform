@@ -45,3 +45,11 @@ class RouteInfo:
     @classmethod
     def get_message_broker_tags(cls):
         return cls._message_broker_conf.get('tags')
+    
+    @classmethod
+    def get_service_endpoints_info(cls):
+        return cls._message_broker_conf.get('endpoints')
+    
+    @classmethod
+    def get_service_endpoint(cls, usage):
+        return cls._message_broker_conf.get('endpoints')[usage]

@@ -17,3 +17,7 @@ message_broker:
     - DBot
     - DBot_message_broker
     - python
+  endpoints: 
+    receive_service_commands: service_commands
+    receive_service_endpoints: service_endpoints
+    receive_service_results: service_results

@@ -3,9 +3,11 @@ from flask import request, jsonify
 from app.message_handler.bot_commands import BotCommands
 from app.message_handler.service_registry import serviceRegistry
 from utils.message_sender import Msg_struct, send_message
+from conf.route_info.route_info import RouteInfo
 
 def message_broker_route_registration(app):
-    @app.route('/service_commands', methods=['POST'])
+    receive_service_results_endpoint = RouteInfo.get_service_endpoint('receive_service_commands')
+    @app.route(f'/{receive_service_results_endpoint}', methods=['POST'])
     def register_service_commands():
         data = request.get_json()
         service_name = data.get('service_name')
@@ -17,7 +19,8 @@ def message_broker_route_registration(app):
         else:
             return jsonify({'message': 'Invalid request'}), 400
     
-    @app.route('/service_results', methods=['POST'])
+    receive_service_results_endpoint = RouteInfo.get_service_endpoint('receive_service_endpoints')
+    @app.route(f'/{receive_service_results_endpoint}', methods=['POST'])
     def register_service_results():
         data = request.get_json()
         message = data.get('message')
@@ -28,7 +31,8 @@ def message_broker_route_registration(app):
         send_message(msg_struct)
         return jsonify({'message': 'OK'}), 200
     
-    @app.route('/service_endpoints', methods=['POST'])
+    receive_service_endpoints_endpoint = RouteInfo.get_service_endpoint('receive_service_results')
+    @app.route(f'/{receive_service_endpoints_endpoint}', methods=['POST'])
     def register_service_endpoints():
         data = request.get_json()
         service_name = data.get('service_name')

@@ -4,12 +4,11 @@ import requests
 from app.message_handler.bot_commands import BotCommands
 from app.message_handler.command_error_handler import command_error_handler
 from app.message_handler.permission_denied_handler import permission_denied
-from app.message_handler.server_registry import ServerRegistry
+from app.message_handler.service_registry import serviceRegistry
 from queue import Queue
 import time
 
 message_queue = Queue()
-
 
 def message_forwarding():
     while True:
@@ -25,7 +24,6 @@ def message_forwarding():
             permission_denied(gid=gid, qid=qid)
         print(f"Message forwarded to {url}")
         time.sleep(0.1)
-
 
 def message_handler(message: str, gid=None, qid=None):
     def check_command(message, command_list):
@@ -46,13 +44,13 @@ def message_handler(message: str, gid=None, qid=None):
         if 'error' == command:
             command_error_handler(gid, qid)
         else:
-            server_name = BotCommands.get_server_name(command)
-            server_info = ServerRegistry.get_server(server_name)
-            if server_info is not None:
-                server_ip = server_info['ip']
-                server_port = server_info['port']
-                endpoint = server_info['endpoints']['receive_command']
-                url = f"http://{server_ip}:{server_port}/{endpoint}"
+            service_name = BotCommands.get_service_name(command)
+            service_info = serviceRegistry.get_service(service_name)
+            if service_info is not None:
+                service_ip = service_info['ip']
+                service_port = service_info['port']
+                endpoint = service_info['endpoints']['receive_command']
+                url = f"http://{service_ip}:{service_port}/{endpoint}"
                 message = {
                     'url':url,
                     'json': {'command': command, 'args': param_list, 'gid': gid, 'qid': qid}

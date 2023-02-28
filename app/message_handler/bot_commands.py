@@ -6,9 +6,9 @@ class BotCommands:
     _lock = threading.Lock()
 
     @classmethod
-    def add_commands(cls, command, server_name):
+    def add_commands(cls, command, service_name):
         with cls._lock:
-            cls._bot_commands[command] = server_name
+            cls._bot_commands[command] = service_name
             print(cls._bot_commands)
     
     @classmethod
@@ -17,7 +17,7 @@ class BotCommands:
             return list(cls._bot_commands.keys())
     
     @classmethod
-    def get_server_name(cls, command):
+    def get_service_name(cls, command):
         with cls._lock:
             return cls._bot_commands[command]
     

@@ -1,6 +1,7 @@
+# route_info.py
 import yaml
 
-class Conf:
+class RouteInfo:
     _bot_conf = {}
     _message_broker_conf = {}
 

@@ -1,22 +1,23 @@
-# server.py
+# service.py
 import threading
 import time
-from conf.conf import Conf
-from app.route.bot_routes import create_bot_app
-from app.route.message_broker_routes import craete_message_broker_app
+from conf.route_info.route_info import RouteInfo
+from app.app import create_bot_app
+from app.app import craete_message_broker_app
 from app.message_handler.message_handler import message_forwarding
 
-CONF_PATH = './conf/conf.yaml'
+def load_conf():
+    RouteInfo._load_config('conf/route_info/route_info.yaml')
 
 if __name__ == '__main__': 
-    Conf._load_config(CONF_PATH)
+    load_conf()
 
     bot_app = create_bot_app()
     message_broker_app = craete_message_broker_app()
     
-    ip = Conf.get_bot_ip()
-    bot_port = Conf.get_bot_port()
-    message_broker_port = Conf.get_message_broker_port()
+    ip = RouteInfo.get_bot_ip()
+    bot_port = RouteInfo.get_bot_port()
+    message_broker_port = RouteInfo.get_message_broker_port()
     threads = [
         threading.Thread(target=message_forwarding),
         threading.Thread(target=bot_app.run, kwargs={'host': ip, 'port': bot_port}),

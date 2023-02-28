@@ -1,30 +1,8 @@
 # bot_routes.py
-from flask import Flask, request
+from flask import request
 from app.message_handler.message_handler import message_handler
-from utils.service_discovery.consul_client import consul_client
-from conf.route_info.route_info import RouteInfo
 
-def register_consul(app):
-    '''
-    服务开启前,注册consul
-    '''
-    service_name = RouteInfo.get_bot_name()
-    port = RouteInfo.get_bot_port()
-    tags = RouteInfo.get_bot_tags()
-    bot_id = consul_client.register_service(service_name, port, tags)
-    config = {
-        'bot_id': bot_id
-    }
-    return config
-
-def deregister_service(app):
-    '''
-    服务结束后,注销consul
-    '''
-    bot_id = app.config['bot_id']
-    consul_client.deregister_service(bot_id)
-
-def route_registration(app):
+def bot_route_registration(app):
     @app.route('/', methods=['POST'])
     def handle_message():
         # 获取消息体

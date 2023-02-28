@@ -1,12 +1,12 @@
 from flask import Flask
 
-from api.bot_routes import route_registration as bot_route_registration
-from api.bot_routes import deregister_service as bot_deregister_service
-from api.bot_routes import register_consul as bot_register_consul
+from api.bot_routes import bot_route_registration
+from utils.service_discovery.consul_utils import bot_deregister_service
+from utils.service_discovery.consul_utils import bot_register_consul
 
-from api.message_broker_routes import route_registration as message_broker_route_registration
-from api.message_broker_routes import deregister_service as message_broker_deregister_service
-from api.message_broker_routes import register_consul as message_broker_register_consul
+from api.message_broker_routes import message_broker_route_registration
+from utils.service_discovery.consul_utils import message_broker_deregister_service
+from utils.service_discovery.consul_utils import message_broker_register_consul
 
 def create_bot_app():
     bot_app = Flask(__name__)

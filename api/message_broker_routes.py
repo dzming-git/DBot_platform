@@ -1,33 +1,10 @@
 # message_broker_routes.py
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 from app.message_handler.bot_commands import BotCommands
 from app.message_handler.service_registry import serviceRegistry
-from utils.service_discovery.consul_client import consul_client
-from conf.route_info.route_info import RouteInfo
 from utils.message_sender import Msg_struct, send_message
 
-
-def register_consul(app):
-    '''
-    服务开启前,注册consul
-    '''
-    service_name = RouteInfo.get_message_broker_name()
-    port = RouteInfo.get_message_broker_port()
-    service_tags = RouteInfo.get_bot_tags()
-    message_broker_id = consul_client.register_service(service_name, port, service_tags)
-    config = {
-        'message_broker_id': message_broker_id
-    }
-    return config
-
-def deregister_service(app):
-    '''
-    服务结束后,注销consul
-    '''
-    message_broker_id = app.config['message_broker_id']
-    consul_client.deregister_service(message_broker_id)
-
-def route_registration(app):
+def message_broker_route_registration(app):
     @app.route('/service_commands', methods=['POST'])
     def register_service_commands():
         data = request.get_json()

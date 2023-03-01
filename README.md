@@ -21,7 +21,7 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
 
 ### 安装
 
-1. 从[go-cqhttp](https://docs.go-cqhttp.org/guide/quick_start.html) 下载合适你的操作系统的安装包，并根据说明完成初始化。
+1. 从 [go-cqhttp](https://docs.go-cqhttp.org/guide/quick_start.html) 下载合适你的操作系统的安装包，并根据说明完成初始化。
    
 2. 从 [Consul官网](https://www.consul.io/downloads.html) 下载适合你的操作系统的安装包，并安装。
 
@@ -48,11 +48,12 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
 3. 运行机器人主程序 `app/server.py`：
    
    **注意 项目的工作目录必须是根目录**
-   
+
    ``` python
    python -m app.server run
    ```
    或者
+   
    配置`run.bat`文件中运行该程序的python地址后，双击打开`run.bat`
 
 ## 配置文件

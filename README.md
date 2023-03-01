@@ -46,7 +46,9 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
    
 
 3. 运行机器人主程序 `app/server.py`：
+   
    **注意 项目的工作目录必须是根目录**
+   
    ``` python
    python -m app.server run
    ```

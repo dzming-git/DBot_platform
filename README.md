@@ -21,7 +21,7 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
 
 ### 安装
 
-1. 确保已经安装了 Python 3.x 和 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp/releases) 框架。
+1. 从[go-cqhttp](https://docs.go-cqhttp.org/guide/quick_start.html) 下载合适你的操作系统的安装包，并根据说明完成初始化。
    
 2. 从 [Consul官网](https://www.consul.io/downloads.html) 下载适合你的操作系统的安装包，并安装。
 
@@ -35,17 +35,23 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
 
 ### 运行
 
-1. 运行consul：
+1. 运行`consul`：
 
    ``` bash
    consul agent -dev
    ```
 
-2. 运行机器人主程序 `app/server.py`：
+2. 运行`go-cqhttp`：
+   [go-cqhttp帮助中心](https://docs.go-cqhttp.org/guide/quick_start.html#%E4%BD%BF%E7%94%A8)
+   
 
+3. 运行机器人主程序 `app/server.py`：
+   **注意 项目的工作目录必须是根目录**
    ``` python
-   python app/server.py
+   python -m app.server run
    ```
+   或者
+   配置`run.bat`文件中运行该程序的python地址后，双击打开`run.bat`
 
 ## 配置文件
 

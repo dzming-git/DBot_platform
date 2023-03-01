@@ -18,10 +18,10 @@ def bot_route_registration(app):
         raw_message = message.get('raw_message')
         # 处理私聊消息
         if message_type == 'private':
-            message_handler(raw_message, sender_id)
+            message_handler(raw_message, qid=sender_id)
         # 处理群聊消息
         elif message_type == 'group':
-            message_handler(raw_message, group_id, sender_id)
+            message_handler(raw_message, gid=group_id, qid=sender_id)
         # 返回响应
         return 'OK'
 

@@ -18,6 +18,7 @@ message_broker:
     - DBot_message_broker
     - python
   endpoints: 
-    receive_service_commands: service_commands
-    receive_service_endpoints: service_endpoints
-    receive_service_results: service_results
+    message_broker_endpoints: endpoints  # 与所有服务程序保持一致
+    service_commands: service_commands
+    service_endpoints: service_endpoints
+    service_results: service_results

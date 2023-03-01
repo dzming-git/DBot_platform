@@ -47,7 +47,7 @@ class RouteInfo:
         return cls._message_broker_conf.get('tags')
     
     @classmethod
-    def get_service_endpoints_info(cls):
+    def get_service_endpoints_info(cls) -> dict:
         return cls._message_broker_conf.get('endpoints')
     
     @classmethod

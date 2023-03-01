@@ -6,8 +6,16 @@ from utils.message_sender import Msg_struct, send_message
 from conf.route_info.route_info import RouteInfo
 
 def message_broker_route_registration(app):
-    receive_service_commands_endpoint = RouteInfo.get_service_endpoint('receive_service_commands')
-    @app.route(f'/{receive_service_commands_endpoint}', methods=['POST'])
+    message_broker_endpoints_key = 'message_broker_endpoints'
+    message_broker_endpoints_endpoint = RouteInfo.get_service_endpoint(message_broker_endpoints_key)
+    @app.route(f'/{message_broker_endpoints_endpoint}')
+    def register_upload_endpoints_info():
+        service_endpoints_info = RouteInfo.get_service_endpoints_info()
+        service_endpoints_info.pop(message_broker_endpoints_key, None)
+        return jsonify(service_endpoints_info)
+    
+    service_commands_endpoint = RouteInfo.get_service_endpoint('service_commands')
+    @app.route(f'/{service_commands_endpoint}', methods=['POST'])
     def register_service_commands():
         data = request.get_json()
         service_name = data.get('service_name')
@@ -19,8 +27,8 @@ def message_broker_route_registration(app):
         else:
             return jsonify({'message': 'Invalid request'}), 400
     
-    receive_service_results_endpoint = RouteInfo.get_service_endpoint('receive_service_results')
-    @app.route(f'/{receive_service_results_endpoint}', methods=['POST'])
+    service_results_endpoint = RouteInfo.get_service_endpoint('service_results')
+    @app.route(f'/{service_results_endpoint}', methods=['POST'])
     def register_service_results():
         data = request.get_json()
         message = data.get('message')
@@ -31,8 +39,8 @@ def message_broker_route_registration(app):
         send_message(msg_struct)
         return jsonify({'message': 'OK'}), 200
     
-    receive_service_endpoints_endpoint = RouteInfo.get_service_endpoint('receive_service_endpoints')
-    @app.route(f'/{receive_service_endpoints_endpoint}', methods=['POST'])
+    service_endpoints_endpoint = RouteInfo.get_service_endpoint('service_endpoints')
+    @app.route(f'/{service_endpoints_endpoint}', methods=['POST'])
     def register_service_endpoints():
         data = request.get_json()
         service_name = data.get('service_name')

@@ -1,22 +1,22 @@
 # API网关 配置
 api_gateway:
-  name: Dapi_gateway
+  name: DBot
   ip: 0.0.0.0
   port: 5701
   tags:
     - DBot
-    - api_gateway
+    - Bot_api_gateway
     - python
     - go-cqhttp
 
 # 消息代理配置
 message_broker:
-  name: Dapi_gateway_message_broker
+  name: DBot_message_broker
   ip: 0.0.0.0
   port: 5703
   tags:
-    - Dapi_gateway
-    - Dapi_gateway_message_broker
+    - DBot
+    - DBot_message_broker
     - python
   endpoints: 
     message_broker_endpoints: endpoints  # 与所有服务程序保持一致

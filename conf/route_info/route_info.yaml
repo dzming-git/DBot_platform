@@ -1,6 +1,6 @@
 # API网关 配置
 api_gateway:
-  name: DBot
+  name: DBot_api_gateway
   ip: 0.0.0.0
   port: 5701
   tags:

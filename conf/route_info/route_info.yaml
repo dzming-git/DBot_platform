@@ -1,21 +1,22 @@
-# 机器人主程序配置
-bot:
-  name: DBot_main
+# API网关 配置
+api_gateway:
+  name: Dapi_gateway
   ip: 0.0.0.0
   port: 5701
   tags:
     - DBot
+    - api_gateway
     - python
     - go-cqhttp
 
 # 消息代理配置
 message_broker:
-  name: DBot_message_broker
+  name: Dapi_gateway_message_broker
   ip: 0.0.0.0
   port: 5703
   tags:
-    - DBot
-    - DBot_message_broker
+    - Dapi_gateway
+    - Dapi_gateway_message_broker
     - python
   endpoints: 
     message_broker_endpoints: endpoints  # 与所有服务程序保持一致

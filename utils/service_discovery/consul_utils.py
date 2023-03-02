@@ -1,25 +1,25 @@
 from utils.service_discovery.consul_client import consul_client
 from conf.route_info.route_info import RouteInfo
 
-def bot_register_consul(app):
+def api_gateway_register_consul(app):
     '''
     服务开启前,注册consul
     '''
-    service_name = RouteInfo.get_bot_name()
-    port = RouteInfo.get_bot_port()
-    tags = RouteInfo.get_bot_tags()
-    bot_id = consul_client.register_service(service_name, port, tags)
+    service_name = RouteInfo.get_api_gateway_name()
+    port = RouteInfo.get_api_gateway_port()
+    tags = RouteInfo.get_api_gateway_tags()
+    api_gateway_id = consul_client.register_service(service_name, port, tags)
     config = {
-        'bot_id': bot_id
+        'api_gateway_id': api_gateway_id
     }
     return config
 
-def bot_deregister_service(app):
+def api_gateway_deregister_service(app):
     '''
     服务结束后,注销consul
     '''
-    bot_id = app.config['bot_id']
-    consul_client.deregister_service(bot_id)
+    api_gateway_id = app.config['api_gateway_id']
+    consul_client.deregister_service(api_gateway_id)
 
 def message_broker_register_consul(app):
     '''
@@ -27,7 +27,7 @@ def message_broker_register_consul(app):
     '''
     service_name = RouteInfo.get_message_broker_name()
     port = RouteInfo.get_message_broker_port()
-    service_tags = RouteInfo.get_bot_tags()
+    service_tags = RouteInfo.get_api_gateway_tags()
     message_broker_id = consul_client.register_service(service_name, port, service_tags)
     config = {
         'message_broker_id': message_broker_id

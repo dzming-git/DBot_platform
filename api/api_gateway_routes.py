@@ -1,8 +1,8 @@
-# bot_routes.py
+# api_gateway_routes.py
 from flask import request
 from app.message_handler.message_handler import message_handler
 
-def bot_route_registration(app):
+def api_gateway_route_registration(app):
     @app.route('/', methods=['POST'])
     def handle_message():
         # 获取消息体

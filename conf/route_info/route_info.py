@@ -2,32 +2,32 @@
 import yaml
 
 class RouteInfo:
-    _bot_conf = {}
+    _api_gateway_conf = {}
     _message_broker_conf = {}
 
     @classmethod
     def _load_config(cls, config_path):
         with open(config_path, 'r', encoding='utf-8') as f:
             config = yaml.safe_load(f)
-            cls._bot_conf = config.get('bot', {})
+            cls._api_gateway_conf = config.get('api_gateway', {})
             cls._message_broker_conf = config.get('message_broker', {})
 
-    # 机器人主程序配置方法
+    # API网关配置方法
     @classmethod
-    def get_bot_name(cls):
-        return cls._bot_conf.get('name')
+    def get_api_gateway_name(cls):
+        return cls._api_gateway_conf.get('name')
 
     @classmethod
-    def get_bot_ip(cls):
-        return cls._bot_conf.get('ip')
+    def get_api_gateway_ip(cls):
+        return cls._api_gateway_conf.get('ip')
 
     @classmethod
-    def get_bot_port(cls):
-        return cls._bot_conf.get('port')
+    def get_api_gateway_port(cls):
+        return cls._api_gateway_conf.get('port')
 
     @classmethod
-    def get_bot_tags(cls):
-        return cls._bot_conf.get('tags')
+    def get_api_gateway_tags(cls):
+        return cls._api_gateway_conf.get('tags')
 
     # 消息代理配置方法
     @classmethod

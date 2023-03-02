@@ -1,8 +1,10 @@
-# DBot_main
+# DBot_platform
 
-DBot微服务的主程序，可以接入微服务架构的[服务程序](README.md#服务程序)。
+DBot微服务的平台程序。
+作为一个API网关程序和消息代理程序，负责接收和处理来自不同微服务的请求和消息，并进行路由和转发，实现微服务之间的通信和协作。
+DBot_platform作为微服务架构的入口程序，用于运行其他微服务架构的[服务程序](README.md#其他服务程序)，提供了可靠、高效、灵活的服务注册、发现和调用功能，从而帮助企业快速构建和扩展微服务架构。
 
-## 服务程序
+## 其他服务程序
 
 - [DBot_monitor](https://github.com/dzming-git/DBot_monitor)
 
@@ -25,7 +27,7 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
    
 2. 从 [Consul官网](https://www.consul.io/downloads.html) 下载适合你的操作系统的安装包，并安装。
 
-3. 下载代码到本地的`DBot_main`目录。
+3. 下载代码到本地的`DBot_platform`目录。
 
 4. 安装依赖库，运行以下命令：
 
@@ -45,7 +47,7 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
    [go-cqhttp帮助中心](https://docs.go-cqhttp.org/guide/quick_start.html#%E4%BD%BF%E7%94%A8)
    
 
-3. 运行机器人主程序 `app/server.py`：
+3. 运行DBot微服务的平台程序 `app/server.py`：
    
    **注意 项目的工作目录必须是根目录**
 
@@ -58,7 +60,7 @@ DBot微服务的主程序，可以接入微服务架构的[服务程序](README.
 
 ## 配置文件
 
-- `conf/route_info/route_info.yaml` - 配置文件，包括机器人主程序和消息代理的配置信息。
+- `conf/route_info/route_info.yaml` - 配置文件，包括DBot微服务的API网关程序和消息代理的配置信息。
 
 ## 授权许可
 

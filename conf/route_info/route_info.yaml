@@ -1,4 +1,4 @@
-# API网关 配置
+# API网关配置
 api_gateway:
   name: DBot_api_gateway
   ip: 0.0.0.0

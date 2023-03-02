@@ -60,7 +60,7 @@ DBot_platform作为微服务架构的入口程序，用于运行其他微服务�
 
 ## 配置文件
 
-- `conf/route_info/route_info.yaml` - 配置文件，包括DBot微服务的API网关程序和消息代理的配置信息。
+- `conf/route_info/route_info.yaml` - 配置文件，包括DBot微服务的API网关和消息代理的配置信息。
 
 ## 授权许可
 

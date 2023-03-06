@@ -55,6 +55,7 @@ class MessageBrokerServerThread(threading.Thread):
         config = {
             **message_broker_register_consul(self._app)
         }
+        message_broker_endpoints_upload()
         self._app.config.update(config)
         message_broker_route_registration(self._app)
         ip = RouteInfo.get_message_broker_ip()

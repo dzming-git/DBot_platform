@@ -36,9 +36,9 @@ def message_broker_register_consul(app):
 
 def message_broker_endpoints_upload():
     service_endpoints_info = RouteInfo.get_service_endpoints_info()
-    essage_broker_consul_key = RouteInfo.get_message_broker_consul_key('message_broker_endpoints')
+    message_broker_consul_key = RouteInfo.get_message_broker_consul_key('message_broker_endpoints')
     message_broker_endpoints_dict = {
-        essage_broker_consul_key: service_endpoints_info
+        message_broker_consul_key: service_endpoints_info
     }
     consul_client.update_key_value(message_broker_endpoints_dict)
 

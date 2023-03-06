@@ -52,7 +52,7 @@ DBot_platform作为微服务架构的入口程序，用于运行其他微服务�
    **注意 项目的工作目录必须是根目录**
 
    ``` python
-   python -m app.server run
+   python -m app.server
    ```
    或者
    

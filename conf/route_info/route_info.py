@@ -1,11 +1,12 @@
 # route_info.py
 import yaml
-from utils.watch_config import watch_config
+from utils.watch_config import WatchDogThread
 import copy
 from utils.compare_dicts import compare_dicts
 
 class RouteInfo:
     _config_path = ''
+    _watch_dog = None
     _config = {}
     _api_gateway_conf_from_file = {}
     _message_broker_conf_from_file = {}
@@ -18,7 +19,8 @@ class RouteInfo:
             cls._message_broker_conf_from_file = config.get('message_broker', {})
             if not reload_flag:
                 cls._config_path = config_path
-                watch_config(config_path, cls.reload_config)
+                cls._watch_dog = WatchDogThread(config_path, cls.reload_config)
+                cls._watch_dog.start()
 
     @classmethod
     def reload_config(cls):

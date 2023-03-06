@@ -26,8 +26,7 @@ def message_broker_route_registration(app):
         message = data.get('message')
         gid = data.get('gid')
         qid = data.get('qid')
-        at = data.get('at')
-        msg_struct = Msg_struct(gid=gid, qid=qid, at=at, msg=message)
+        msg_struct = Msg_struct(gid=gid, qid=qid, msg=message)
         send_message(msg_struct)
         return jsonify({'message': 'OK'}), 200
     

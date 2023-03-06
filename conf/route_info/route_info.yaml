@@ -18,8 +18,9 @@ message_broker:
     - DBot
     - DBot_message_broker
     - python
+  consul_key:
+    message_broker_endpoints: message_broker_endpoints
   endpoints: 
-    message_broker_endpoints: endpoints  # 与所有服务程序保持一致
     service_commands: service_commands
     service_endpoints: service_endpoints
     service_results: service_results

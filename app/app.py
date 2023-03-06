@@ -13,6 +13,9 @@ from utils.service_discovery.consul_utils import message_broker_deregister_servi
 from utils.service_discovery.consul_utils import message_broker_register_consul, message_broker_endpoints_upload
 
 class ApiGatewayServerThread(threading.Thread):
+    def __init__(self):
+        super().__init__(name='ApiGatewayServerThread')
+
     def init(self):
         self._server_name = 'DBot_api_gateway'
         self._app = Flask(__name__)
@@ -43,6 +46,9 @@ class ApiGatewayServerThread(threading.Thread):
         self.start()
 
 class MessageBrokerServerThread(threading.Thread):
+    def __init__(self):
+        super().__init__(name='MessageBrokerServerThread')
+
     def init(self):
         self._server_name = 'DBot_message_broker'
         self._app = Flask(__name__)

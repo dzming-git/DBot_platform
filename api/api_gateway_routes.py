@@ -1,6 +1,6 @@
 # api_gateway_routes.py
 from flask import request
-from app.message_handler.message_handler import message_handler
+from app.message_handler.message_handler import message_handler_thread
 
 def api_gateway_route_registration(app):
     @app.route('/', methods=['POST'])
@@ -18,10 +18,10 @@ def api_gateway_route_registration(app):
         raw_message = message.get('raw_message')
         # 处理私聊消息
         if message_type == 'private':
-            message_handler(raw_message, qid=sender_id)
+            message_handler_thread.message_handler(raw_message, qid=sender_id)
         # 处理群聊消息
         elif message_type == 'group':
-            message_handler(raw_message, gid=group_id, qid=sender_id)
+            message_handler_thread.message_handler(raw_message, gid=group_id, qid=sender_id)
         # 返回响应
         return 'OK'
 

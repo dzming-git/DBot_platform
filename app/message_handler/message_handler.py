@@ -5,6 +5,7 @@ import threading
 from app.message_handler.bot_commands import BotCommands
 from app.message_handler.command_error_handler import command_error_handler
 from app.message_handler.permission_denied_handler import permission_denied
+from utils.message_sender import Msg_struct, send_message
 from app.message_handler.service_registry import serviceRegistry
 from queue import Queue
 import time
@@ -20,15 +21,19 @@ class MessageHandlerThread(threading.Thread):
             message = self.message_queue.get(block=True)
             url = message['url']
             json = message['json']
-            response = requests.post(url, json=json)
-            result_dict = response.json()
-            permission = result_dict['permission']
-            gid = json['gid']
-            qid = json['qid']
-            if not permission:
-                permission_denied(gid=gid, qid=qid)
-            print(f"Message forwarded to {url}")
-            time.sleep(0.1)
+            try:
+                response = requests.post(url, json=json)
+                result_dict = response.json()
+                permission = result_dict['permission']
+                gid = json['gid']
+                qid = json['qid']
+                if not permission:
+                    permission_denied(gid=gid, qid=qid)
+                print(f"Message forwarded to {url}")
+                time.sleep(0.1)
+            except ConnectionError:
+                msg_struct = Msg_struct(gid=gid, qid=qid, msg='连接错误')
+                send_message(msg_struct)    
     
     def message_handler(self, message: str, gid=None, qid=None):
         def check_command(message, command_list):

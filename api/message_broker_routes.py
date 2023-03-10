@@ -19,9 +19,9 @@ def message_broker_route_registration(app):
         else:
             return jsonify({'message': 'Invalid request'}), 400
     
-    service_results_endpoint = RouteInfo.get_service_endpoint('service_results')
-    @app.route(f'/{service_results_endpoint}', methods=['POST'])
-    def register_service_results():
+    service_message_endpoint = RouteInfo.get_service_endpoint('service_message')
+    @app.route(f'/{service_message_endpoint}', methods=['POST'])
+    def register_service_message():
         data = request.get_json()
         message = data.get('message')
         gid = data.get('gid')

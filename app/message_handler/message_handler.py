@@ -31,7 +31,7 @@ class MessageHandlerThread(threading.Thread):
                     permission_denied(gid=gid, qid=qid)
                 print(f"Message forwarded to {url}")
                 time.sleep(0.1)
-            except ConnectionError:
+            except:
                 msg_struct = Msg_struct(gid=gid, qid=qid, msg='连接错误')
                 send_message(msg_struct)    
     

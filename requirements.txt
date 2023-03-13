@@ -2,3 +2,4 @@ Flask
 PyYAML
 requests
 python-consul
+watchdog

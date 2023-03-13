@@ -4,8 +4,31 @@ from app.message_handler.bot_commands import BotCommands
 from app.message_handler.service_registry import serviceRegistry
 from utils.message_sender import Msg_struct, send_message
 from conf.route_info.route_info import RouteInfo
+from app.message_handler.message_handler import message_handler_thread
 
 def message_broker_route_registration(app):
+    @app.route('/', methods=['POST'])
+    def handle_message():
+        # 获取消息体
+        message = request.json
+        print(message)
+        # 获取消息类型
+        message_type = message.get('message_type')
+        # 获取发送者id
+        sender_id = message.get('sender', {}).get('user_id')
+        # 获取群id
+        group_id = message.get('group_id')
+        # 获取原始消息内容
+        raw_message = message.get('raw_message')
+        # 处理私聊消息
+        if message_type == 'private':
+            message_handler_thread.message_handler(raw_message, qid=sender_id)
+        # 处理群聊消息
+        elif message_type == 'group':
+            message_handler_thread.message_handler(raw_message, gid=group_id, qid=sender_id)
+        # 返回响应
+        return 'OK'
+
     service_commands_endpoint = RouteInfo.get_service_endpoint('service_commands')
     @app.route(f'/{service_commands_endpoint}', methods=['POST'])
     def register_service_commands():

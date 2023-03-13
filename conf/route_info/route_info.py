@@ -8,14 +8,12 @@ class RouteInfo:
     _config_path = ''
     _watch_dog = None
     _config = {}
-    _api_gateway_conf_from_file = {}
     _message_broker_conf_from_file = {}
 
     @classmethod
     def load_config(cls, config_path, reload_flag=False):
         with open(config_path, 'r', encoding='utf-8') as f:
             config = yaml.safe_load(f)
-            cls._api_gateway_conf_from_file = config.get('api_gateway', {})
             cls._message_broker_conf_from_file = config.get('message_broker', {})
             if not reload_flag:
                 cls._config_path = config_path
@@ -31,23 +29,6 @@ class RouteInfo:
         if added_dict or deleted_dict or modified_dict:
             from app.app import monitor_server_thread
             monitor_server_thread.restart()
-
-    # API网关配置方法
-    @classmethod
-    def get_api_gateway_name(cls):
-        return cls._api_gateway_conf_from_file.get('name')
-
-    @classmethod
-    def get_api_gateway_ip(cls):
-        return cls._api_gateway_conf_from_file.get('ip')
-
-    @classmethod
-    def get_api_gateway_port(cls):
-        return cls._api_gateway_conf_from_file.get('port')
-
-    @classmethod
-    def get_api_gateway_tags(cls):
-        return cls._api_gateway_conf_from_file.get('tags')
 
     # 消息代理配置方法
     @classmethod

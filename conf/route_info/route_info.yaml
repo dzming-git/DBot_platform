@@ -1,19 +1,8 @@
-# API网关配置
-api_gateway:
-  name: DBot_api_gateway
-  ip: 0.0.0.0
-  port: 5701
-  tags:
-    - DBot
-    - Bot_api_gateway
-    - python
-    - go-cqhttp
-
 # 消息代理配置
 message_broker:
   name: DBot_message_broker
   ip: 0.0.0.0
-  port: 5703
+  port: 5701
   tags:
     - DBot
     - DBot_message_broker

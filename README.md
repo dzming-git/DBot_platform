@@ -7,13 +7,11 @@ DBot_platform作为微服务架构的入口程序，用于运行其他微服务�
 ## 其他服务程序
 
 - [DBot_monitor](https://github.com/dzming-git/DBot_monitor)
+- [DBot_lab_assistant](https://github.com/dzming-git/DBot_lab_assistant)
 
 ## 功能与权限要求
 
 ### 主程序支持的指令
-
-| 指令               | 举例             | 功能                                   | 权限要求 |
-| ------------------ | ---------------- | -------------------------------------- | -------- |
 
 ### 服务程序支持的指令
 
@@ -27,11 +25,13 @@ DBot_platform作为微服务架构的入口程序，用于运行其他微服务�
    
 2. 从 [Consul官网](https://www.consul.io/downloads.html) 下载适合你的操作系统的安装包，并安装。
 
+3. 安装DBot微服务的SDK [DBot_SDK](https://github.com/dzming-git/DBot_SDK) 。
+
 3. 下载代码到本地的`DBot_platform`目录。
 
 4. 安装依赖库，运行以下命令：
 
-   ``` python
+   ``` 
    pip install -r requirements.txt
    ```
 
@@ -39,19 +39,18 @@ DBot_platform作为微服务架构的入口程序，用于运行其他微服务�
 
 1. 运行`consul`：
 
-   ``` bash
+   ``` 
    consul agent -dev
    ```
 
 2. 运行`go-cqhttp`：
    [go-cqhttp帮助中心](https://docs.go-cqhttp.org/guide/quick_start.html#%E4%BD%BF%E7%94%A8)
    
-
 3. 运行DBot微服务的平台程序 `app/server.py`：
    
    **注意 项目的工作目录必须是根目录**
 
-   ``` python
+   ``` 
    python -m app.server
    ```
    或者

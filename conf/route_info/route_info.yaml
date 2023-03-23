@@ -1,9 +1,10 @@
 # 消息代理配置
-message_broker:
-  name: DBot_message_broker
+service:
+  name: DBot_platform
   ip: 0.0.0.0
   port: 5701
   tags:
+    - platform
     - DBot
-    - DBot_message_broker
+    - DBot_platform
     - python

@@ -1,1 +1,0 @@
-from my_platform.app import server
